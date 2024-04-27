@@ -5,10 +5,11 @@ uri = "mongodb+srv://BITS:BITS@clustermodern.baoilaf.mongodb.net/?retryWrites=tr
 client = MongoClient(uri)
 db = client["people_data"]
 collection = db["Modern project"]
-def insert_vaccine_record(aadhar_number, name, mobile_number, vaccine_name, date_of_dose1, serial_number_dose1, date_of_dose2, serial_number_dose2, city, state):
+def insert_vaccine_record(aadhar_number, name, mobile_number, vaccine_name, date_of_dose1, serial_number_dose1, date_of_dose2=None, serial_number_dose2=None, city=None, state=None):
     # Convert date strings to datetime objects
     date_of_dose1 = datetime.strptime(date_of_dose1, "%Y-%m-%d")
-    date_of_dose2 = datetime.strptime(date_of_dose2, "%Y-%m-%d")
+    if date_of_dose2:
+        date_of_dose2 = datetime.strptime(date_of_dose2, "%Y-%m-%d")
     
     # Create record object
     record = {
@@ -18,11 +19,18 @@ def insert_vaccine_record(aadhar_number, name, mobile_number, vaccine_name, date
         "vaccine_name": vaccine_name,
         "date_of_dose1": date_of_dose1,
         "serial_number_dose1": serial_number_dose1,
-        "date_of_dose2": date_of_dose2,
-        "serial_number_dose2": serial_number_dose2,
-        "city": city,
-        "state": state
     }
+    
+    # Add dose 2 information if provided
+    if date_of_dose2 and serial_number_dose2:
+        record["date_of_dose2"] = date_of_dose2
+        record["serial_number_dose2"] = serial_number_dose2
+        
+    # Add city and state if provided
+    if city:
+        record["city"] = city
+    if state:
+        record["state"] = state
     
     # Insert record into MongoDB
     collection.insert_one(record)
@@ -31,8 +39,8 @@ def insert_vaccine_record(aadhar_number, name, mobile_number, vaccine_name, date
 if __name__ == "__main__":
     # Example usage
     insert_vaccine_record(
-        "123456789012",
-        "John Doe",
+        "12345678sdfa2",
+        "Joe",
         "9876543210",
         "Pfizer",
         "2023-01-15",

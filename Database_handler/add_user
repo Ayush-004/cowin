@@ -1,0 +1,29 @@
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
+from datetime import datetime
+uri = "mongodb+srv://BITS:BITS@clustermodern.baoilaf.mongodb.net/?retryWrites=true&w=majority&appName=ClusterModern"
+client = MongoClient(uri)
+db = client["people_data"]
+collection = db["User Name"]
+def insert_user_data(name, aadhar_number, mobile_number, gender, dob, city=None, state=None):
+    # Convert date string to datetime object
+    dob = datetime.strptime(dob, "%Y-%m-%d")
+    
+    # Create record object
+    record = {
+        "name": name,
+        "aadhar_number": aadhar_number,
+        "mobile_number": mobile_number,
+        "gender": gender,
+        "dob": dob,
+    }
+    
+    # Add city and state if provided
+    if city:
+        record["city"] = city
+    if state:
+        record["state"] = state
+    
+    # Insert record into MongoDB
+    collection.insert_one(record)
+    print("User data inserted successfully!")
