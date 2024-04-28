@@ -6,6 +6,8 @@ client = MongoClient(uri)
 db = client["people_data"]
 collection = db["Modern project"]
 import pandas as pd
+import os
+dose_number=os.getenv("DOSE_NUMBER")
 
 def statewise_vaccinated_by_dose(dose_number):
     # Define the pipeline based on the dose number
@@ -24,3 +26,5 @@ def statewise_vaccinated_by_dose(dose_number):
     df = pd.DataFrame(data)
     
     return df
+if __name__ == "__main__":
+    statewise_vaccinated_by_dose(dose_number)

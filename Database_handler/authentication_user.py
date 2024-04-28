@@ -1,10 +1,12 @@
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
+import os
 from datetime import datetime
 uri = "mongodb+srv://BITS:BITS@clustermodern.baoilaf.mongodb.net/?retryWrites=true&w=majority&appName=ClusterModern"
 client = MongoClient(uri)
 db = client["people_data"]
 collection = db["User Name"]
+aadhar_number = os.getenv('AADHAR_NUMBER')
 def authenticate_user(aadhar_number):
     # Query the database for the user record
     query = {"aadhar_number": aadhar_number}
@@ -19,4 +21,4 @@ def authenticate_user(aadhar_number):
 
 if __name__ == "__main__":
     # Example usage
-    authenticate_user("12345678sdfa2")
+    authenticate_user(aadhar_number)

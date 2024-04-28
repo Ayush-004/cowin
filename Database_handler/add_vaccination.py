@@ -1,10 +1,22 @@
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from datetime import datetime
+import os
 uri = "mongodb+srv://BITS:BITS@clustermodern.baoilaf.mongodb.net/?retryWrites=true&w=majority&appName=ClusterModern"
 client = MongoClient(uri)
 db = client["people_data"]
 collection = db["Modern project"]
+addar=os.getenv("AADHAR_NUMBER")
+name=os.getenv("NAME")
+date=os.getenv("DATE")
+mobile_number=os.getenv("MOBILE_NUMBER")
+vaccine_name=os.getenv("VACCINE_NAME")
+date_of_dose1=os.getenv("DATE1")
+serial_number1=os.getenv("SERIAL_NUMBER")
+date_of_dose2=os.getenv("DATE2")
+serial_number2=os.getenv("SERIAL_NUMBER")
+city=os.getenv("CITY")
+state=os.getenv("STATE")
 def insert_vaccine_record(aadhar_number, name, mobile_number, vaccine_name, date_of_dose1, serial_number_dose1, date_of_dose2=None, serial_number_dose2=None, city=None, state=None):
     # Convert date strings to datetime objects
     date_of_dose1 = datetime.strptime(date_of_dose1, "%Y-%m-%d")
@@ -39,14 +51,14 @@ def insert_vaccine_record(aadhar_number, name, mobile_number, vaccine_name, date
 if __name__ == "__main__":
     # Example usage
     insert_vaccine_record(
-        "12345678sdfa2",
-        "Joe",
-        "9876543210",
-        "Pfizer",
-        "2023-01-15",
-        "12345",
-        "2023-02-15",
-        "54321",
-        "New York",
-        "NY"
+        addar,
+        name,
+        mobile_number,
+        vaccine_name,
+        date_of_dose1,
+        serial_number1,
+        date_of_dose2,
+        serial_number2,
+        city,
+        state
     )

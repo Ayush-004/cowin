@@ -1,10 +1,15 @@
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from datetime import datetime
+import os
 uri = "mongodb+srv://BITS:BITS@clustermodern.baoilaf.mongodb.net/?retryWrites=true&w=majority&appName=ClusterModern"
 client = MongoClient(uri)
 db = client["people_data"]
 collection = db["Modern project"]
+addar=os.getenv("AADHAR_NUMBER")
+dose_number=os.getenv("DOSE_NUMBER")
+date=os.getenv("DATE")
+serial_number=os.getenv("SERIAL_NUMBER")
 def update_vaccine_info(aadhar_number, dose_number, date_of_dose=None, serial_number=None):
     # Check if the record exists
     query = {"aadhar_number": aadhar_number}
@@ -42,7 +47,6 @@ def update_vaccine_info(aadhar_number, dose_number, date_of_dose=None, serial_nu
 
 if __name__ == "__main__":
     # Example usage to insert dose 1 information
-    update_vaccine_info("12345678sdfa2", 1, "2023-01-15", "12345")
+    update_vaccine_info(addar, dose_number, date, serial_number)
     
-    # Example usage to update dose 2 information
-    update_vaccine_info("12345678sdfa2", 2, "2023-02-15", "54321")
+    

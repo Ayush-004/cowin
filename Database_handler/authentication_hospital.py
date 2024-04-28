@@ -1,10 +1,12 @@
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from datetime import datetime
+import os
 uri = "mongodb+srv://BITS:BITS@clustermodern.baoilaf.mongodb.net/?retryWrites=true&w=majority&appName=ClusterModern"
 client = MongoClient(uri)
 db = client["people_data"]
 collection = db["Hospital name"]
+hosptial_id = os.getenv('HOSPITAL_ID')
 def identify_hospital(hospital_id):
     # Query the database for the hospital record
     query = {"hospital_id": hospital_id}
@@ -19,7 +21,7 @@ def identify_hospital(hospital_id):
 
 if __name__ == "__main__":
     # Example usage
-    hospital = identify_hospital("123456")
+    hospital = identify_hospital(hosptial_id)
     if hospital:
         print("Hospital Name:", hospital["hospital_name"])
         print("Location:", hospital["city"], ",", hospital["state"])

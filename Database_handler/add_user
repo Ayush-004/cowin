@@ -1,10 +1,18 @@
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from datetime import datetime
+import os
 uri = "mongodb+srv://BITS:BITS@clustermodern.baoilaf.mongodb.net/?retryWrites=true&w=majority&appName=ClusterModern"
 client = MongoClient(uri)
 db = client["people_data"]
 collection = db["User Name"]
+addar=os.getenv("AADHAR_NUMBER")
+name=os.getenv("NAME")
+gender=os.getenv("GENDER")
+mobile_number=os.getenv("MOBILE_NUMBER")
+dob=os.getenv("DOB")
+city=os.getenv("CITY")
+state=os.getenv("STATE")
 def insert_user_data(name, aadhar_number, mobile_number, gender, dob, city=None, state=None):
     # Convert date string to datetime object
     dob = datetime.strptime(dob, "%Y-%m-%d")
@@ -27,3 +35,6 @@ def insert_user_data(name, aadhar_number, mobile_number, gender, dob, city=None,
     # Insert record into MongoDB
     collection.insert_one(record)
     print("User data inserted successfully!")
+
+if __name__ == "__main__":
+    insert_user_data(name,addar,mobile_number,gender,dob,city,state)
